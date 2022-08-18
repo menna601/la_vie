@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:la_vie/routes/routes.dart';
 
 import '../../constansts.dart';
 import '../screens/two_tab_container.dart';
@@ -22,7 +23,9 @@ class UpperBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        navKey.currentState!.pushNamed(home);
+                      },
                       child: Text('Home', style: k14_400BlackText)),
                   TextButton(
                       onPressed: () {},
