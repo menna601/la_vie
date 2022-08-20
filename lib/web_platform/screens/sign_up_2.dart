@@ -305,31 +305,45 @@ class _LoginState extends State<Login> {
 }
 
 class CustomField extends StatelessWidget {
-  CustomField({required this.label, required this.onChanged});
-  final String label;
+  CustomField(
+      {this.label,
+      this.hint,
+      this.borderColor,
+      this.height,
+      required this.onChanged});
+  final String? label;
+  final String? hint;
+  final Color? borderColor;
+  final double? height;
   final Function(String) onChanged;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: kIsWeb ? 104 : 75,
+      height: height != null
+          ? height
+          : kIsWeb
+              ? 104
+              : 75,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: kIsWeb ? k20_500DarkGreyText : k14_500GreyText,
-          ),
+          if (label != null)
+            Text(
+              label!,
+              style: kIsWeb ? k20_500DarkGreyText : k14_500GreyText,
+            ),
           SizedBox(height: 10),
           Expanded(
             child: TextField(
               onChanged: onChanged,
               decoration: InputDecoration(
+                  hintText: hint,
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide(color: Color(0xFF1ABC00))),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10))),
-              cursorColor: Color(0xFF1ABC00),
+              cursorColor: borderColor ?? Color(0xFF1ABC00),
             ),
           ),
         ],

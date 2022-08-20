@@ -7,6 +7,8 @@ import 'package:la_vie/routes/route_generator.dart';
 import 'package:la_vie/routes/routes.dart';
 import 'package:la_vie/utils/shared_pref.dart';
 import 'package:la_vie/web_platform/Component/upper_bar.dart';
+import 'package:la_vie/web_platform/screens/address.dart';
+import 'package:la_vie/web_platform/screens/home.dart';
 import 'package:la_vie/web_platform/screens/sign_up_2.dart';
 import 'package:provider/provider.dart';
 
@@ -33,36 +35,37 @@ class LaVie extends StatelessWidget {
   const LaVie({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => AppUser()),
-        ],
-        child: MaterialApp(
-          theme: ThemeData(
-            fontFamily: kIsWeb ? 'Poppins' : null,
-            elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ButtonStyle(
-                elevation: MaterialStateProperty.all<double>(0),
-                backgroundColor: MaterialStateProperty.all<Color>(kGreen),
-                textStyle: MaterialStateProperty.all<TextStyle>(
-                  TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          home: Wrapper(),
-          //home: kIsWeb ? SignUp2() : SignUpAndroid(),
-        ));
+    return MultiProvider(providers: [
+      ChangeNotifierProvider(create: (_) => AppUser()),
+    ], child: Wrapper());
   }
 }
 
 class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    AppUser _user = Provider.of<AppUser>(context, listen: true).user;
+    AppUser _user = Provider.of<AppUser>(context).user;
+    final fName = PreferenceUtils.getString(SharedKeys.firstName);
+    final address = PreferenceUtils.getString(SharedKeys.address);
+    print(_user.address);
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: kIsWeb ? 'Poppins' : null,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+              elevation: MaterialStateProperty.all<double>(0),
+              backgroundColor: MaterialStateProperty.all<Color>(kGreen),
+              textStyle: MaterialStateProperty.all<TextStyle>(
+                TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              shape: MaterialStateProperty.all<OutlinedBorder>(
+                  RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ))),
+        ),
+      ),
       builder: (_, child) {
         Widget widget;
         widget = kIsWeb
@@ -74,10 +77,11 @@ class Wrapper extends StatelessWidget {
             : SignUpAndroid();
         return widget;
       },
-      home: _user.firstName == '' &&
-              PreferenceUtils.getString(SharedKeys.firstName) == ''
+      home: !_user.isLogged() && fName == ''
           ? SignUp2()
-          : Container(),
+          : _user.address == null
+              ? Address()
+              : Home(),
       onGenerateRoute: RouteGenerator.generateRoute,
       navigatorKey: navKey,
     );

@@ -4,23 +4,30 @@ import 'package:la_vie/utils/Api.dart';
 import '../utils/shared_pref.dart';
 
 class AppUser with ChangeNotifier {
-  AppUser(
-      {this.id = '',
-      this.firstName = '',
-      this.lastName = '',
-      this.email = '',
-      this.imageUrl = '',
-      this.address});
+  AppUser({
+    this.id = '',
+    this.firstName = '',
+    this.lastName = '',
+    this.email = '',
+    this.imageUrl = '',
+    this.accessToken = '',
+    this.address,
+  });
 
   final String id;
   final String firstName;
   final String lastName;
   final String email;
   final String imageUrl;
-  final String? address;
+  final String accessToken;
+  String? address;
 
   static AppUser _user = AppUser();
   AppUser get user => _user;
+
+  bool isLogged() {
+    return _user.firstName == '' ? false : true;
+  }
 
   factory AppUser.fromJson(Map<String, dynamic> json) {
     return AppUser(
@@ -29,7 +36,8 @@ class AppUser with ChangeNotifier {
         lastName: json['data']['user']['lastName'],
         email: json['data']['user']['email'],
         imageUrl: json['data']['user']['imageUrl'],
-        address: json['data']['user']['address']);
+        address: json['data']['user']['address'],
+        accessToken: json['data']['accessToken']);
   }
 
   Future signIn(String email, String password, bool isRemember) async {
@@ -62,6 +70,12 @@ class AppUser with ChangeNotifier {
       return true;
     }
     return false;
+  }
+
+  void addAddress(String address) async {
+    await Api.addAddress(address, accessToken);
+    _user.address = address;
+    notifyListeners();
   }
 
   void notifyListener() {

@@ -68,6 +68,7 @@ flutter:
   # To add fonts to your application, add an fonts section, like this:
   assets:
     - svg/
+    - images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -85,6 +86,10 @@ flutter:
       fonts:
         - asset: fonts/Poppins-Regular.ttf
         - asset: fonts/Poppins-Bold.ttf
+    - family: Karantina
+      fonts:
+        - asset: fonts/Karantina-Regular.ttf
+        - asset: fonts/Karantina-Bold.ttf
 
 
   # For details regarding fonts from package dependencies,

@@ -3,11 +3,14 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class NetworkHelper {
-  static Future sendPostRequest(
-      String path, Map<String, dynamic>? params) async {
+  static Future sendPostRequest(String path,
+      [Map<String, dynamic>? params,
+      Map<String, String>? headers]) async {
     Uri url = Uri.https('lavie.orangedigitalcenteregypt.com', path);
+    if (headers != null) headers.addAll({'Content-Type': 'application/json'});
     http.Response response = await http.post(url,
-        headers: {'Content-Type': 'application/json'},
+        headers:
+            headers != null ? headers : {'Content-Type': 'application/json'},
         body: jsonEncode(params));
     print(jsonDecode(response.body));
     if (response.statusCode == 200) {

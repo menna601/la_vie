@@ -9,6 +9,7 @@ const k8AGrey = Color(0xFF8A8A8A);
 const k90Grey = Color(0xFF909090);
 const k93Grey = Color(0xFF939393);
 const k97Grey = Color(0xFF979797);
+const kF0White = Color(0xFFF0F0F0);
 
 //TextStyles
 
@@ -46,6 +47,11 @@ const k14_500GreyText = TextStyle(
   color: k6FGrey,
   fontWeight: FontWeight.w500,
 );
+
+const k16_500Text = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w500,
+);
 const k18_400GreenText = TextStyle(
   fontWeight: FontWeight.w400,
   color: k8AGrey,
@@ -78,6 +84,15 @@ const k20_500GreenUText = TextStyle(
 const k20_500GreenText = TextStyle(
   fontSize: 20,
   color: kGreen,
+  fontWeight: FontWeight.w500,
+);
+const k24_500Text = TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.w500,
+);
+const k24_500_97GreyText = TextStyle(
+  fontSize: 24,
+  color: k97Grey,
   fontWeight: FontWeight.w500,
 );
 const k26_400BlackText = TextStyle(
