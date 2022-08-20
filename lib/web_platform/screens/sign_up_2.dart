@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:la_vie/constansts.dart';
 import 'package:la_vie/model/user.dart';
-import 'package:la_vie/utils/shared_pref.dart';
 import 'package:la_vie/web_platform/screens/two_tab_container.dart';
 import 'package:provider/provider.dart';
 
@@ -226,17 +225,6 @@ class _LoginState extends State<Login> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    PreferenceUtils.init();
-  }
-
-  void saveInShared(AppUser appUser) {
-    PreferenceUtils.setString(SharedKeys.firstName, appUser.firstName);
-    print(PreferenceUtils.getString(SharedKeys.firstName, appUser.firstName));
-    PreferenceUtils.setString(SharedKeys.lastName, appUser.lastName);
-    PreferenceUtils.setString(SharedKeys.userId, appUser.id);
-    PreferenceUtils.setString(SharedKeys.email, appUser.email);
-    PreferenceUtils.setString(SharedKeys.imageUrl, appUser.imageUrl);
-    PreferenceUtils.setString(SharedKeys.address, appUser.address ?? '');
   }
 
   @override
@@ -286,13 +274,7 @@ class _LoginState extends State<Login> {
         height: 52,
         child: ElevatedButton(
           onPressed: () async {
-            print(email);
-            print(password);
-            final userData = await _user.signIn(email, password);
-            if (userData != null) {
-              _user = AppUser.fromJson(userData);
-              if (rememberMe) saveInShared(_user);
-            }
+            await _user.signIn(email, password, rememberMe);
           },
           child: Text('Login', style: k18_500Text),
           style: TextButton.styleFrom(

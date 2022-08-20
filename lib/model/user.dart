@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:la_vie/utils/Api.dart';
 
+import '../utils/shared_pref.dart';
+
 class AppUser with ChangeNotifier {
   AppUser(
       {this.id = '',
@@ -17,6 +19,9 @@ class AppUser with ChangeNotifier {
   final String imageUrl;
   final String? address;
 
+  static AppUser _user = AppUser();
+  AppUser get user => _user;
+
   factory AppUser.fromJson(Map<String, dynamic> json) {
     return AppUser(
         id: json['data']['user']['userId'],
@@ -27,10 +32,23 @@ class AppUser with ChangeNotifier {
         address: json['data']['user']['address']);
   }
 
-  Future signIn(String email, String password) async {
+  Future signIn(String email, String password, bool isRemember) async {
     final result = await Api.signIn(email, password);
-    if (result != null) notifyListeners();
-    return result;
+    if (result != null) {
+      _user = AppUser.fromJson(result);
+      if (isRemember) _saveInShared(_user);
+      notifyListeners();
+    }
+  }
+
+  void _saveInShared(AppUser appUser) {
+    PreferenceUtils.setString(SharedKeys.firstName, appUser.firstName);
+    print(PreferenceUtils.getString(SharedKeys.firstName, appUser.firstName));
+    PreferenceUtils.setString(SharedKeys.lastName, appUser.lastName);
+    PreferenceUtils.setString(SharedKeys.userId, appUser.id);
+    PreferenceUtils.setString(SharedKeys.email, appUser.email);
+    PreferenceUtils.setString(SharedKeys.imageUrl, appUser.imageUrl);
+    PreferenceUtils.setString(SharedKeys.address, appUser.address ?? '');
   }
 
   void signUp(Map<String, dynamic> userData) async {
@@ -44,5 +62,9 @@ class AppUser with ChangeNotifier {
       return true;
     }
     return false;
+  }
+
+  void notifyListener() {
+    notifyListeners();
   }
 }

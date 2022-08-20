@@ -5,14 +5,16 @@ import 'package:la_vie/andriod_platform/sign_up_android.dart';
 import 'package:la_vie/model/user.dart';
 import 'package:la_vie/routes/route_generator.dart';
 import 'package:la_vie/routes/routes.dart';
+import 'package:la_vie/utils/shared_pref.dart';
 import 'package:la_vie/web_platform/Component/upper_bar.dart';
+import 'package:la_vie/web_platform/screens/sign_up_2.dart';
 import 'package:provider/provider.dart';
 
 import 'constansts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  PreferenceUtils.init();
   if (kIsWeb) {
     await Firebase.initializeApp(
       options: FirebaseOptions(
@@ -59,8 +61,7 @@ class LaVie extends StatelessWidget {
 class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    AppUser _user = Provider.of<AppUser>(context);
-    print(_user.email);
+    AppUser _user = Provider.of<AppUser>(context, listen: true).user;
     return MaterialApp(
       builder: (_, child) {
         Widget widget;
@@ -73,7 +74,10 @@ class Wrapper extends StatelessWidget {
             : SignUpAndroid();
         return widget;
       },
-      initialRoute: _user.email == '' ? index : home,
+      home: _user.firstName == '' &&
+              PreferenceUtils.getString(SharedKeys.firstName) == ''
+          ? SignUp2()
+          : Container(),
       onGenerateRoute: RouteGenerator.generateRoute,
       navigatorKey: navKey,
     );

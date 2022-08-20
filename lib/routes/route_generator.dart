@@ -8,7 +8,7 @@ class RouteGenerator {
       case index:
         return MaterialPageRoute(builder: (_) => SignUp2());
       case home:
-        return MaterialPageRoute(builder: (_) => Container());
+        return MaterialPageRoute(builder: (_) => Text('hi'));
     }
     return MaterialPageRoute(builder: (_) => Container());
   }
