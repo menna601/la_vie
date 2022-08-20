@@ -27,13 +27,10 @@ class AppUser with ChangeNotifier {
         address: json['data']['user']['address']);
   }
 
-  Future<bool> signIn(String email, String password) async {
+  Future signIn(String email, String password) async {
     final result = await Api.signIn(email, password);
-    if (result != null) {
-      notifyListeners();
-      return true;
-    }
-    return false;
+    if (result != null) notifyListeners();
+    return result;
   }
 
   void signUp(Map<String, dynamic> userData) async {

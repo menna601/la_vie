@@ -50,21 +50,32 @@ class LaVie extends StatelessWidget {
               ),
             ),
           ),
-          builder: (_, child) {
-            Widget widget;
-            widget = kIsWeb
-                ? Scaffold(
-                    body: Column(
-                      children: [UpperBar(), Expanded(child: child!)],
-                    ),
-                  )
-                : SignUpAndroid();
-            return widget;
-          },
-          initialRoute: index,
-          onGenerateRoute: RouteGenerator.generateRoute,
-          navigatorKey: navKey,
+          home: Wrapper(),
           //home: kIsWeb ? SignUp2() : SignUpAndroid(),
         ));
+  }
+}
+
+class Wrapper extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    AppUser _user = Provider.of<AppUser>(context);
+    print(_user.email);
+    return MaterialApp(
+      builder: (_, child) {
+        Widget widget;
+        widget = kIsWeb
+            ? Scaffold(
+                body: Column(
+                  children: [UpperBar(), Expanded(child: child!)],
+                ),
+              )
+            : SignUpAndroid();
+        return widget;
+      },
+      initialRoute: _user.email == '' ? index : home,
+      onGenerateRoute: RouteGenerator.generateRoute,
+      navigatorKey: navKey,
+    );
   }
 }

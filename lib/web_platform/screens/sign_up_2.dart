@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:la_vie/constansts.dart';
 import 'package:la_vie/model/user.dart';
+import 'package:la_vie/utils/shared_pref.dart';
 import 'package:la_vie/web_platform/screens/two_tab_container.dart';
 import 'package:provider/provider.dart';
 
@@ -218,11 +219,29 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool rememberMe = false;
+  String email = '';
+  String password = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    PreferenceUtils.init();
+  }
+
+  void saveInShared(AppUser appUser) {
+    PreferenceUtils.setString(SharedKeys.firstName, appUser.firstName);
+    print(PreferenceUtils.getString(SharedKeys.firstName, appUser.firstName));
+    PreferenceUtils.setString(SharedKeys.lastName, appUser.lastName);
+    PreferenceUtils.setString(SharedKeys.userId, appUser.id);
+    PreferenceUtils.setString(SharedKeys.email, appUser.email);
+    PreferenceUtils.setString(SharedKeys.imageUrl, appUser.imageUrl);
+    PreferenceUtils.setString(SharedKeys.address, appUser.address ?? '');
+  }
+
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<AppUser>(context, listen: false);
-    String email = '';
-    String password = '';
+    AppUser _user = Provider.of<AppUser>(context, listen: false);
     return Column(children: [
       CustomField(
           label: 'Email',
@@ -269,12 +288,10 @@ class _LoginState extends State<Login> {
           onPressed: () async {
             print(email);
             print(password);
-            final isLogged = await user.signIn(email, password);
-            if (isLogged) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => Container()));
+            final userData = await _user.signIn(email, password);
+            if (userData != null) {
+              _user = AppUser.fromJson(userData);
+              if (rememberMe) saveInShared(_user);
             }
           },
           child: Text('Login', style: k18_500Text),
