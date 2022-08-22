@@ -23,4 +23,12 @@ class PreferenceUtils {
   }
 }
 
-enum SharedKeys { userId, firstName, lastName, email, imageUrl, address }
+enum SharedKeys {
+  userId,
+  firstName,
+  lastName,
+  email,
+  imageUrl,
+  address,
+  accessToken
+}

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,6 @@ import 'package:la_vie/routes/route_generator.dart';
 import 'package:la_vie/routes/routes.dart';
 import 'package:la_vie/utils/shared_pref.dart';
 import 'package:la_vie/web_platform/Component/upper_bar.dart';
-import 'package:la_vie/web_platform/screens/address.dart';
 import 'package:la_vie/web_platform/screens/home.dart';
 import 'package:la_vie/web_platform/screens/sign_up_2.dart';
 import 'package:provider/provider.dart';
@@ -46,9 +47,14 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     AppUser _user = Provider.of<AppUser>(context).user;
     final fName = PreferenceUtils.getString(SharedKeys.firstName);
-    final address = PreferenceUtils.getString(SharedKeys.address);
     print(_user.address);
     return MaterialApp(
+      scrollBehavior: MaterialScrollBehavior().copyWith(dragDevices: {
+        PointerDeviceKind.mouse,
+        PointerDeviceKind.touch,
+        PointerDeviceKind.stylus,
+        PointerDeviceKind.unknown
+      }),
       theme: ThemeData(
         fontFamily: kIsWeb ? 'Poppins' : null,
         elevatedButtonTheme: ElevatedButtonThemeData(
@@ -77,11 +83,7 @@ class Wrapper extends StatelessWidget {
             : SignUpAndroid();
         return widget;
       },
-      home: !_user.isLogged() && fName == ''
-          ? SignUp2()
-          : _user.address == null
-              ? Address()
-              : Home(),
+      home: !_user.isLogged() && fName == '' ? SignUp2() : Home(),
       onGenerateRoute: RouteGenerator.generateRoute,
       navigatorKey: navKey,
     );

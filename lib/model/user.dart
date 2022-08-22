@@ -56,6 +56,7 @@ class AppUser with ChangeNotifier {
     PreferenceUtils.setString(SharedKeys.userId, appUser.id);
     PreferenceUtils.setString(SharedKeys.email, appUser.email);
     PreferenceUtils.setString(SharedKeys.imageUrl, appUser.imageUrl);
+    PreferenceUtils.setString(SharedKeys.accessToken, appUser.accessToken);
     PreferenceUtils.setString(SharedKeys.address, appUser.address ?? '');
   }
 

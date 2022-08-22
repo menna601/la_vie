@@ -59,7 +59,7 @@ class _SignUpAndroidState extends State<SignUpAndroid> {
                       child: Row(
                         children: [
                           Expanded(child: Divider()),
-                          Text('or continue with', style: k12_400Text),
+                          Text('or continue with', style: k12_400_97GreyText),
                           Expanded(child: Divider())
                         ],
                       ),

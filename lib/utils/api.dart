@@ -1,7 +1,12 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:la_vie/utils/Networking.dart';
 
+import '../model/Product.dart';
+
 class Api {
+  static const Domain_Name = 'https://lavie.orangedigitalcenteregypt.com';
+  static const Products = 'api/v1/products';
+  static const Plants = 'api/v1/plants';
   static const Sign_In = 'api/v1/auth/signin';
   static const Sign_Up = 'api/v1/auth/signup';
   static const Sign_In_With_Google = 'api/v1/auth/google';
@@ -31,5 +36,12 @@ class Api {
   static addAddress(String address, String accessToken) async {
     await NetworkHelper.sendPostRequest(Claim_Free_Seeds, {'address': address},
         {'Authorization': 'Bearer $accessToken'});
+  }
+
+  static Future<List<Product>> getProducts(String accessToken) async {
+    final result = await NetworkHelper.sendGetRequest(
+        Products, null, {'Authorization': 'Bearer $accessToken'});
+    var data = result['data'] as List;
+    return data.map((element) => Product.fromJson(element)).toList();
   }
 }

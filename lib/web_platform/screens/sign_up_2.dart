@@ -194,7 +194,7 @@ class SignUpScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Already have an account? ', style: k10_400GreenText),
+              Text('Already have an account? ', style: k10_400GreyText),
               TextButton(
                   onPressed: () {
                     if (changeTab != null) changeTab!(TabStatus.rightTab);
@@ -288,7 +288,7 @@ class _LoginState extends State<Login> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Don\'t have an account? ', style: k10_400GreenText),
+            Text('Don\'t have an account? ', style: k10_400GreyText),
             TextButton(
                 onPressed: () {
                   if (widget.changeTab != null)
