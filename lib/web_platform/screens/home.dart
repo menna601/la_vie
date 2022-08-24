@@ -4,7 +4,7 @@ import 'package:la_vie/utils/Api.dart';
 import 'package:la_vie/utils/shared_pref.dart';
 
 import '../../constansts.dart';
-import '../../model/Product.dart';
+import '../../model/product.dart';
 
 class Home extends StatelessWidget {
   @override

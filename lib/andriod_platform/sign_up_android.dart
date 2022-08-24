@@ -69,6 +69,9 @@ class _SignUpAndroidState extends State<SignUpAndroid> {
                       children: [
                         GestureDetector(
                           child: SvgPicture.asset('svg/google.svg'),
+                          onTap: () {
+                            user.signInWithGoogle();
+                          },
                         ),
                         SizedBox(width: 30),
                         GestureDetector(

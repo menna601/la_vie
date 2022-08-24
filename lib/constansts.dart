@@ -100,6 +100,10 @@ const k18_600GreenText = TextStyle(
   color: kGreen,
   fontSize: 18,
 );
+const k19_500Text = TextStyle(
+  fontWeight: FontWeight.w500,
+  fontSize: 19,
+);
 const k20_500DarkGreyText = TextStyle(
   fontSize: 20,
   color: k65Grey,
@@ -150,6 +154,10 @@ const k26_600GreenText = TextStyle(
 
 const k26_600Text = TextStyle(
   fontSize: 26,
+  fontWeight: FontWeight.w600,
+);
+const k35_600Text = TextStyle(
+  fontSize: 53,
   fontWeight: FontWeight.w600,
 );
 

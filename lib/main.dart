@@ -9,11 +9,13 @@ import 'package:la_vie/routes/route_generator.dart';
 import 'package:la_vie/routes/routes.dart';
 import 'package:la_vie/utils/shared_pref.dart';
 import 'package:la_vie/web_platform/Component/upper_bar.dart';
-import 'package:la_vie/web_platform/screens/home.dart';
+import 'package:la_vie/web_platform/screens/products.dart';
 import 'package:la_vie/web_platform/screens/sign_up_2.dart';
 import 'package:provider/provider.dart';
 
 import 'constansts.dart';
+import 'model/categories.dart';
+import 'model/search.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -83,7 +85,15 @@ class Wrapper extends StatelessWidget {
             : SignUpAndroid();
         return widget;
       },
-      home: !_user.isLogged() && fName == '' ? SignUp2() : Home(),
+      home: !_user.isLogged() && fName == ''
+          ? SignUp2()
+          : MultiProvider(
+              providers: [
+                ChangeNotifierProvider(create: (_) => Categories()),
+                ChangeNotifierProvider(create: (_) => Search())
+              ],
+              child: Products(),
+            ),
       onGenerateRoute: RouteGenerator.generateRoute,
       navigatorKey: navKey,
     );

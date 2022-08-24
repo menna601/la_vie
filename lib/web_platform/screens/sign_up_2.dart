@@ -222,12 +222,6 @@ class _LoginState extends State<Login> {
   String password = '';
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     AppUser _user = Provider.of<AppUser>(context, listen: false);
     return Column(children: [
@@ -310,12 +304,14 @@ class CustomField extends StatelessWidget {
       this.hint,
       this.borderColor,
       this.height,
+      this.border = true,
       required this.onChanged});
   final String? label;
   final String? hint;
   final Color? borderColor;
   final double? height;
   final Function(String) onChanged;
+  final bool border;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -332,17 +328,21 @@ class CustomField extends StatelessWidget {
               label!,
               style: kIsWeb ? k20_500DarkGreyText : k14_500GreyText,
             ),
-          SizedBox(height: 10),
+          if (label != null) SizedBox(height: 10),
           Expanded(
             child: TextField(
               onChanged: onChanged,
               decoration: InputDecoration(
                   hintText: hint,
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Color(0xFF1ABC00))),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                  focusedBorder: border
+                      ? OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Color(0xFF1ABC00)))
+                      : InputBorder.none,
+                  border: border
+                      ? OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10))
+                      : InputBorder.none),
               cursorColor: borderColor ?? Color(0xFF1ABC00),
             ),
           ),
