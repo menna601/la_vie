@@ -15,7 +15,7 @@ class Home extends StatelessWidget {
           Introduction(),
           PopularCategories(),
           BestSeller(),
-          Blogs(),
+          BlogsList(),
           AboutUs(),
           MobileApplicationSection(),
         ],
@@ -361,8 +361,8 @@ class BestSellerItem extends StatelessWidget {
   }
 }
 
-class Blogs extends StatelessWidget {
-  const Blogs({Key? key}) : super(key: key);
+class BlogsList extends StatelessWidget {
+  const BlogsList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
