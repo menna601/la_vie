@@ -9,16 +9,18 @@ import '../../model/product.dart';
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Introduction(),
-          PopularCategories(),
-          BestSeller(),
-          BlogsList(),
-          AboutUs(),
-          MobileApplicationSection(),
-        ],
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Introduction(),
+            PopularCategories(),
+            BestSeller(),
+            BlogsList(),
+            AboutUs(),
+            MobileApplicationSection(),
+          ],
+        ),
       ),
     );
   }
@@ -122,9 +124,9 @@ class _TreeState extends State<Tree> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: SizedBox(
+    return SizedBox(
       height: 700,
+      width: 640,
       child: Stack(
         children: [
           Positioned(
@@ -187,7 +189,7 @@ class _TreeState extends State<Tree> {
           ),
         ],
       ),
-    ));
+    );
   }
 }
 

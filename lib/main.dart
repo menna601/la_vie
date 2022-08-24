@@ -9,7 +9,7 @@ import 'package:la_vie/routes/route_generator.dart';
 import 'package:la_vie/routes/routes.dart';
 import 'package:la_vie/utils/shared_pref.dart';
 import 'package:la_vie/web_platform/Component/upper_bar.dart';
-import 'package:la_vie/web_platform/screens/blogs.dart';
+import 'package:la_vie/web_platform/screens/home.dart';
 import 'package:la_vie/web_platform/screens/sign_up_2.dart';
 import 'package:provider/provider.dart';
 
@@ -46,8 +46,8 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppUser _user = Provider.of<AppUser>(context).user;
-    final fName = PreferenceUtils.getString(SharedKeys.firstName);
-    print(_user.address);
+    final id = PreferenceUtils.getString(SharedKeys.userId);
+    if (id != '') _user = AppUser.fromShared();
     return MaterialApp(
       scrollBehavior: MaterialScrollBehavior().copyWith(dragDevices: {
         PointerDeviceKind.mouse,
@@ -77,13 +77,18 @@ class Wrapper extends StatelessWidget {
         widget = kIsWeb
             ? Scaffold(
                 body: Column(
-                  children: [UpperBar(), Expanded(child: child!)],
+                  children: [
+                    _user.id != ''
+                        ? UpperBar(child: UpperSigned())
+                        : UpperBar(),
+                    Expanded(child: child!)
+                  ],
                 ),
               )
             : SignUpAndroid();
         return widget;
       },
-      home: !_user.isLogged() && fName == '' ? SignUp2() : Blogs(),
+      home: _user.id != '' ? Home() : SignUp2(),
       onGenerateRoute: RouteGenerator.generateRoute,
       navigatorKey: navKey,
     );

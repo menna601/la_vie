@@ -25,10 +25,6 @@ class AppUser with ChangeNotifier {
   static AppUser _user = AppUser();
   AppUser get user => _user;
 
-  bool isLogged() {
-    return _user.firstName == '' ? false : true;
-  }
-
   factory AppUser.fromJson(Map<String, dynamic> json) {
     return AppUser(
         id: json['data']['user']['userId'],
@@ -51,13 +47,24 @@ class AppUser with ChangeNotifier {
 
   void _saveInShared(AppUser appUser) {
     PreferenceUtils.setString(SharedKeys.firstName, appUser.firstName);
-    print(PreferenceUtils.getString(SharedKeys.firstName, appUser.firstName));
     PreferenceUtils.setString(SharedKeys.lastName, appUser.lastName);
     PreferenceUtils.setString(SharedKeys.userId, appUser.id);
     PreferenceUtils.setString(SharedKeys.email, appUser.email);
     PreferenceUtils.setString(SharedKeys.imageUrl, appUser.imageUrl);
     PreferenceUtils.setString(SharedKeys.accessToken, appUser.accessToken);
     PreferenceUtils.setString(SharedKeys.address, appUser.address ?? '');
+  }
+
+  factory AppUser.fromShared() {
+    print(PreferenceUtils.getString(SharedKeys.firstName));
+    return AppUser(
+        id: PreferenceUtils.getString(SharedKeys.userId),
+        firstName: PreferenceUtils.getString(SharedKeys.firstName),
+        lastName: PreferenceUtils.getString(SharedKeys.lastName),
+        email: PreferenceUtils.getString(SharedKeys.email),
+        accessToken: PreferenceUtils.getString(SharedKeys.accessToken),
+        address: PreferenceUtils.getString(SharedKeys.address),
+        imageUrl: PreferenceUtils.getString(SharedKeys.imageUrl));
   }
 
   void signUp(Map<String, dynamic> userData) async {

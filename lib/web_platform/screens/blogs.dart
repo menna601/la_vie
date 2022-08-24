@@ -15,7 +15,7 @@ class Blogs extends StatelessWidget {
             crossAxisCount: 3,
             crossAxisSpacing: 30.0,
             mainAxisSpacing: 50.0,
-            childAspectRatio: (200 / 220)),
+            childAspectRatio: (200 / 250)),
         itemBuilder: (BuildContext context, int index) {
           return BlogItem();
         },
