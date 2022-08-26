@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:la_vie/web_platform/screens/sign_up_2.dart';
 import 'package:provider/provider.dart';
 
 import '../../constansts.dart';
 import '../../model/user.dart';
+import '../Component/custom_field.dart';
 
 class Address extends StatelessWidget {
   Widget build(BuildContext context) {

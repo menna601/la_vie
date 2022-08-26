@@ -6,7 +6,8 @@ import 'package:provider/provider.dart';
 
 import '../../model/user.dart';
 import '../constansts.dart';
-import '../web_platform/screens/sign_up_2.dart';
+import '../web_platform/screens/login_screen.dart';
+import '../web_platform/screens/sign_up_screen.dart';
 import '../web_platform/screens/two_tab_container.dart';
 
 class SignUpAndroid extends StatefulWidget {

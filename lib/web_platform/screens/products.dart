@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:la_vie/model/categories.dart';
-import 'package:la_vie/web_platform/screens/sign_up_2.dart';
 import 'package:provider/provider.dart';
 
 import '../../constansts.dart';
@@ -10,6 +9,7 @@ import '../../model/product.dart';
 import '../../model/search.dart';
 import '../../utils/Api.dart';
 import '../../utils/shared_pref.dart';
+import '../Component/custom_field.dart';
 
 class Products extends StatelessWidget {
   @override
