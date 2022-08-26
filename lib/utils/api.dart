@@ -24,13 +24,17 @@ class Api {
 
   static Future<dynamic> signInWithGoogle() async {
     final googleUser = await GoogleSignIn().signIn();
-    final authHeaders = await googleUser!.authHeaders;
-    final auth = await googleUser.authentication;
-    print(googleUser);
-    print(authHeaders);
-    print(auth.idToken);
-    // return await NetworkHelper.sendGetRequest(
-    //     Sign_In_With_Google, {'access_token': auth?.accessToken}, authHeaders);
+    if (googleUser != null) {
+      final name = googleUser.displayName;
+      final data = {
+        'id': googleUser.id,
+        'email': googleUser.email,
+        'firstName': name != null ? name.split(' ')[0] : '',
+        'lastName': name != null ? name.split(' ')[1] : '',
+        'picture': googleUser.photoUrl ?? ''
+      };
+      return await NetworkHelper.sendPostRequest(Sign_In_With_Google, data);
+    }
   }
 
   static addAddress(String address, String accessToken) async {

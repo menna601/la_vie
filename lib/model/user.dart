@@ -71,13 +71,12 @@ class AppUser with ChangeNotifier {
     Api.signUp(userData);
   }
 
-  Future<bool> signInWithGoogle() async {
+  void signInWithGoogle() async {
     final result = await Api.signInWithGoogle();
     if (result != null) {
+      _user = AppUser.fromJson(result);
       notifyListeners();
-      return true;
     }
-    return false;
   }
 
   void addAddress(String address) async {

@@ -47,7 +47,7 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     AppUser _user = Provider.of<AppUser>(context).user;
     final id = PreferenceUtils.getString(SharedKeys.userId);
-    if (id != '') _user = AppUser.fromShared();
+    //if (id != '') _user = AppUser.fromShared();
     return MaterialApp(
       scrollBehavior: MaterialScrollBehavior().copyWith(dragDevices: {
         PointerDeviceKind.mouse,
