@@ -76,6 +76,9 @@ class _SignUpAndroidState extends State<SignUpAndroid> {
                         ),
                         SizedBox(width: 30),
                         GestureDetector(
+                          onTap: () {
+                            AppUser.signInWithFacebook();
+                          },
                           child: SvgPicture.asset('svg/facebook.svg'),
                         )
                       ],

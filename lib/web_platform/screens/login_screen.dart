@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:la_vie/web_platform/dialog/send_otp.dart';
 import 'package:la_vie/web_platform/screens/two_tab_container.dart';
 import 'package:provider/provider.dart';
 
@@ -55,7 +56,11 @@ class _LoginState extends State<Login> {
               ),
             ),
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => SendOTP());
+                },
                 child: Text(
                   'Forget password ?',
                   style: k20_500GreenUText,

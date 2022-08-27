@@ -10,6 +10,9 @@ class Api {
   static const Plants = 'api/v1/plants';
   static const Sign_In = 'api/v1/auth/signin';
   static const Sign_Up = 'api/v1/auth/signup';
+  static const Forget_Password = 'api/v1/auth/forget-password';
+  static const Reset_Password = 'api/v1/auth/reset-password';
+  static const Verify_OTP = 'api/v1/auth/verify-otp';
   static const Sign_In_With_Google = 'api/v1/auth/google';
   static const Claim_Free_Seeds = 'api/v1/user/me/claimFreeSeeds';
 
@@ -54,5 +57,19 @@ class Api {
         Filters, null, {'Authorization': 'Bearer $accessToken'});
     var data = result['data'];
     return data;
+  }
+
+  static sendOTP(String email) async {
+    await NetworkHelper.sendPostRequest(Forget_Password, {'email': email});
+  }
+
+  static verifyOTP(String email, String password) async {
+    await NetworkHelper.sendPostRequest(
+        Verify_OTP, {'email': email, 'otp': password});
+  }
+
+  static resetPassword(String email, String password, String otp) async {
+    await NetworkHelper.sendPostRequest(
+        Reset_Password, {'email': email, 'password': password, 'otp': otp});
   }
 }

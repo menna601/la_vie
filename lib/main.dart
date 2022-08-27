@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:la_vie/andriod_platform/sign_up_android.dart';
 import 'package:la_vie/model/user.dart';
 import 'package:la_vie/routes/route_generator.dart';
@@ -27,6 +28,12 @@ void main() async {
         projectId: "XXX",
       ),
     );
+    await FacebookAuth.instance.webInitialize(
+      appId: "481393786788606",
+      cookie: false,
+      xfbml: true,
+      version: "v14.0",
+    );
   }
 
   runApp(const LaVie());
@@ -46,7 +53,7 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppUser _user = Provider.of<AppUser>(context).user;
-    final id = PreferenceUtils.getString(SharedKeys.userId);
+    //final id = PreferenceUtils.getString(SharedKeys.userId);
     //if (id != '') _user = AppUser.fromShared();
     return MaterialApp(
       scrollBehavior: MaterialScrollBehavior().copyWith(dragDevices: {

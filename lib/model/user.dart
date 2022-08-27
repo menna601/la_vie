@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:la_vie/utils/Api.dart';
 
 import '../utils/shared_pref.dart';
@@ -79,10 +80,27 @@ class AppUser with ChangeNotifier {
     }
   }
 
+  static void signInWithFacebook() async {
+    final result = await FacebookAuth.i.login();
+    print(result);
+  }
+
   void addAddress(String address) async {
     await Api.addAddress(address, accessToken);
     _user.address = address;
     notifyListeners();
+  }
+
+  static void sendOTP(String email) async {
+    await Api.sendOTP(email);
+  }
+
+  static void verifyOTP(String email, String otp) async {
+    await Api.verifyOTP(email, otp);
+  }
+
+  static void resetPassword(String email, String password, String otp) async {
+    await Api.resetPassword(email, password, otp);
   }
 
   void notifyListener() {

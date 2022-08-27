@@ -92,7 +92,9 @@ class _SignUp2State extends State<SignUp2> {
                         child: SizedBox(
                           height: 55,
                           child: TextButton.icon(
-                              onPressed: () {},
+                              onPressed: () {
+                                AppUser.signInWithFacebook();
+                              },
                               icon: SvgPicture.asset('svg/facebook.svg'),
                               label: Padding(
                                   padding: EdgeInsets.only(left: 25),
